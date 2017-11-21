@@ -22,6 +22,7 @@ abstract class LabRecyclerViewAdapter<T>(
     private val mLayoutIds: IntArray = layoutIds
     private var mRecyclerView: RecyclerView? = null
     private var mRecyclerManager: RecyclerView.LayoutManager? = null
+    private var isLoading = false
 
     companion object {
         private val VIEW_TYPE_HEADER: Int = 0x10000001
@@ -29,13 +30,12 @@ abstract class LabRecyclerViewAdapter<T>(
         private val VIEW_TYPE_LOADING: Int = 0x10000003
     }
 
-    fun getData(): List<T> = mData
-
     private var mHeaderView: View? = null
     private var mFooterView: View? = null
     private var mLoadingView: View? = null
     private var mEmptyView: View? = null
 
+    fun getData(): List<T> = mData
 
     fun setHeaderView(view: View) {
         mHeaderView = view
@@ -49,6 +49,7 @@ abstract class LabRecyclerViewAdapter<T>(
 
     fun setLoadingView(view: View) {
         mLoadingView = view
+        isLoading = true
         notifyDataSetChanged()
         mRecyclerView?.smoothScrollToPosition(itemCount - 1)
     }
@@ -69,6 +70,7 @@ abstract class LabRecyclerViewAdapter<T>(
             mFooterView = null
             notifyDataSetChanged()
         }
+        isLoading = false
     }
 
     fun removeLoadingView() {
@@ -83,6 +85,8 @@ abstract class LabRecyclerViewAdapter<T>(
             mEmptyView = null
         }
     }
+
+    fun isLoading(): Boolean = isLoading
 
 
     private fun hasHeaderView(): Boolean = mHeaderView != null

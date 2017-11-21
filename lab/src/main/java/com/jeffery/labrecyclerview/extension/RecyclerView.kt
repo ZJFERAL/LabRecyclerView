@@ -2,10 +2,8 @@ package com.jeffery.labrecyclerview.extension
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import com.jeffery.labrecyclerview.listener.OnItemClickListener
-import com.jeffery.labrecyclerview.listener.OnItemLongClickListener
-import com.jeffery.labrecyclerview.listener.OnItemSimpleClickListener
-import com.jeffery.labrecyclerview.listener.RecyclerItemClickListenerManager
+import com.jeffery.labrecyclerview.LabRecyclerViewAdapter
+import com.jeffery.labrecyclerview.listener.*
 
 /**
  *
@@ -22,4 +20,23 @@ fun RecyclerView.addItemLongClickListener(context: Context, listener: OnItemLong
 
 fun RecyclerView.addItemClickListener(context: Context, listener: OnItemClickListener) {
     addOnItemTouchListener(RecyclerItemClickListenerManager(context, listener))
+}
+
+fun RecyclerView.isLoading(): Boolean {
+    if (adapter is LabRecyclerViewAdapter<*>) {
+        val localAdapter: LabRecyclerViewAdapter<*> = adapter as LabRecyclerViewAdapter<*>
+        return localAdapter.isLoading()
+    }
+    return false
+}
+
+fun RecyclerView.completeLoading() {
+    if (adapter is LabRecyclerViewAdapter<*>) {
+        val localAdapter: LabRecyclerViewAdapter<*> = adapter as LabRecyclerViewAdapter<*>
+        localAdapter.removeLoadingView()
+    }
+}
+
+fun RecyclerView.setOnRefreshListener(listener: OnRefreshListener) {
+    addOnScrollListener(listener)
 }
