@@ -98,14 +98,14 @@ abstract class LabRecyclerViewAdapter<T>(
     private fun hasEmptyView(): Boolean = mEmptyView != null
 
 
-    private fun needShowHeaderView(position: Int): Boolean
+    public fun needShowHeaderView(position: Int): Boolean
             = position == 0 && hasHeaderView()
 
-    private fun needShowFooterView(position: Int): Boolean
+    public fun needShowFooterView(position: Int): Boolean
             = (position == itemCount - 1 && hasFooterView() && !hasLoadingView())
             || (position == itemCount - 2 && hasFooterView() && hasLoadingView())
 
-    private fun needShowLoadingView(position: Int): Boolean
+    public fun needShowLoadingView(position: Int): Boolean
             = position == itemCount - 1 && hasLoadingView()
 
 

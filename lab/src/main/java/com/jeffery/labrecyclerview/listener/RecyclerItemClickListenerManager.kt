@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import com.jeffery.labrecyclerview.LabRecyclerViewAdapter
 
 /**
  *
@@ -21,8 +22,16 @@ class RecyclerItemClickListenerManager(
     private val mGestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
         override fun onSingleTapUp(e: MotionEvent?): Boolean {
             if (childView != null) {
-                if (listener is OnItemSimpleClickListener) {
-                    listener.onItemClick(childView!!, touchView!!.getChildAdapterPosition(childView))
+                val position = touchView!!.getChildAdapterPosition(childView)
+                val adapter = touchView!!.adapter
+                if (adapter is LabRecyclerViewAdapter<*>) {
+                    if (listener is OnItemSimpleClickListener && (
+                            !adapter.needShowLoadingView(position)
+                                    || !adapter.needShowHeaderView(position)
+                                    || !adapter.needShowFooterView(position)
+                            )) {
+                        listener.onItemClick(childView!!, position)
+                    }
                 }
             }
             return true
@@ -30,8 +39,16 @@ class RecyclerItemClickListenerManager(
 
         override fun onLongPress(e: MotionEvent?) {
             if (childView != null) {
-                if (listener is OnItemLongClickListener) {
-                    listener.onItemLongClickListener(childView!!, touchView!!.getChildAdapterPosition(childView))
+                val position = touchView!!.getChildAdapterPosition(childView)
+                val adapter = touchView!!.adapter
+                if (adapter is LabRecyclerViewAdapter<*>) {
+                    if (listener is OnItemLongClickListener && (
+                            !adapter.needShowLoadingView(position)
+                                    || !adapter.needShowHeaderView(position)
+                                    || !adapter.needShowFooterView(position)
+                            )) {
+                        listener.onItemLongClickListener(childView!!, touchView!!.getChildAdapterPosition(childView))
+                    }
                 }
             }
         }
