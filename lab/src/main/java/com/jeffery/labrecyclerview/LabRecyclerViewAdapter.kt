@@ -174,7 +174,9 @@ abstract class LabRecyclerViewAdapter<T>(
 
     override fun onBindViewHolder(holder: LabRecyclerViewViewHolder?, position: Int) {
         if (holder != null) {
-            setConvertView(holder, mData[position], position)
+            if (needShowHeaderView(position) || needShowFooterView(position) || needShowLoadingView(position))return
+            setConvertView(holder, mData[position - getHeaderViewCount()],
+                    holder.adapterPosition - getHeaderViewCount())
         } else {
             throw Exception("Holder is null")
         }
