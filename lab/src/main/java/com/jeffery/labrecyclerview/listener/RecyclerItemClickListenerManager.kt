@@ -25,11 +25,11 @@ class RecyclerItemClickListenerManager(
                 val position = touchView!!.getChildAdapterPosition(childView)
                 val adapter = touchView!!.adapter
                 if (adapter is LabRecyclerViewAdapter<*>) {
-                    if (listener is OnItemSimpleClickListener && (
-                            !adapter.needShowLoadingView(position)
-                                    || !adapter.needShowHeaderView(position)
-                                    || !adapter.needShowFooterView(position)
-                            )) {
+                    if (listener is OnItemSimpleClickListener
+                            && !adapter.needShowLoadingView(position)
+                            && !adapter.needShowHeaderView(position)
+                            && !adapter.needShowFooterView(position)
+                            ) {
                         listener.onItemClick(childView!!, position)
                     }
                 }
@@ -42,11 +42,11 @@ class RecyclerItemClickListenerManager(
                 val position = touchView!!.getChildAdapterPosition(childView)
                 val adapter = touchView!!.adapter
                 if (adapter is LabRecyclerViewAdapter<*>) {
-                    if (listener is OnItemLongClickListener && (
-                            !adapter.needShowLoadingView(position)
-                                    || !adapter.needShowHeaderView(position)
-                                    || !adapter.needShowFooterView(position)
-                            )) {
+                    if (listener is OnItemLongClickListener
+                            && !adapter.needShowLoadingView(position)
+                            && !adapter.needShowHeaderView(position)
+                            && !adapter.needShowFooterView(position)
+                            ) {
                         listener.onItemLongClickListener(childView!!, touchView!!.getChildAdapterPosition(childView))
                     }
                 }
