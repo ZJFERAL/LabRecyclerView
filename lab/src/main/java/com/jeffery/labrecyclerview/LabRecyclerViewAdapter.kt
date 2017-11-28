@@ -118,9 +118,9 @@ abstract class LabRecyclerViewAdapter<T>(
         return mData.size
     }
 
-    private fun getLoadingViewCount(): Int = if (hasLoadingView()) 1 else 0
-    private fun getHeaderViewCount(): Int = if (hasHeaderView()) 1 else 0
-    private fun getFooterViewCount(): Int = if (hasFooterView()) 1 else 0
+    public fun getLoadingViewCount(): Int = if (hasLoadingView()) 1 else 0
+    public fun getHeaderViewCount(): Int = if (hasHeaderView()) 1 else 0
+    public fun getFooterViewCount(): Int = if (hasFooterView()) 1 else 0
 
     private fun setEmptyViewState() {
         if (hasEmptyView()) {

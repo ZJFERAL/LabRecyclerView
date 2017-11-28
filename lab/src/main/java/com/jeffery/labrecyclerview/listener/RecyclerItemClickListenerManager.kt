@@ -30,7 +30,7 @@ class RecyclerItemClickListenerManager(
                             && !adapter.needShowHeaderView(position)
                             && !adapter.needShowFooterView(position)
                             ) {
-                        listener.onItemClick(childView!!, position)
+                        listener.onItemClick(childView!!, position-adapter.getHeaderViewCount())
                     }
                 }
             }
@@ -47,7 +47,7 @@ class RecyclerItemClickListenerManager(
                             && !adapter.needShowHeaderView(position)
                             && !adapter.needShowFooterView(position)
                             ) {
-                        listener.onItemLongClickListener(childView!!, touchView!!.getChildAdapterPosition(childView))
+                        listener.onItemLongClickListener(childView!!, position-adapter.getHeaderViewCount())
                     }
                 }
             }
