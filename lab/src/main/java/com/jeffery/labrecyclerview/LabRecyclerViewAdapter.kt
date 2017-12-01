@@ -22,7 +22,7 @@ abstract class LabRecyclerViewAdapter<T>(
     private var mRecyclerView: RecyclerView? = null
     private var mRecyclerManager: RecyclerView.LayoutManager? = null
     private var isLoading = false
-    private val mHolders = ArrayList<LabRecyclerViewViewHolder>()
+
 
     companion object {
         private val VIEW_TYPE_HEADER: Int = 0x10000001
@@ -98,14 +98,14 @@ abstract class LabRecyclerViewAdapter<T>(
     private fun hasEmptyView(): Boolean = mEmptyView != null
 
 
-    public fun needShowHeaderView(position: Int): Boolean
+    fun needShowHeaderView(position: Int): Boolean
             = position == 0 && hasHeaderView()
 
-    public fun needShowFooterView(position: Int): Boolean
+    fun needShowFooterView(position: Int): Boolean
             = (position == itemCount - 1 && hasFooterView() && !hasLoadingView())
             || (position == itemCount - 2 && hasFooterView() && hasLoadingView())
 
-    public fun needShowLoadingView(position: Int): Boolean
+    fun needShowLoadingView(position: Int): Boolean
             = position == itemCount - 1 && hasLoadingView()
 
 
@@ -119,13 +119,10 @@ abstract class LabRecyclerViewAdapter<T>(
     }
 
 
-    fun getHolder(index: Int): LabRecyclerViewViewHolder {
-        return mHolders[index]
-    }
 
-    public fun getLoadingViewCount(): Int = if (hasLoadingView()) 1 else 0
-    public fun getHeaderViewCount(): Int = if (hasHeaderView()) 1 else 0
-    public fun getFooterViewCount(): Int = if (hasFooterView()) 1 else 0
+    fun getLoadingViewCount(): Int = if (hasLoadingView()) 1 else 0
+    fun getHeaderViewCount(): Int = if (hasHeaderView()) 1 else 0
+    fun getFooterViewCount(): Int = if (hasFooterView()) 1 else 0
 
     private fun setEmptyViewState() {
         if (hasEmptyView()) {
@@ -220,7 +217,6 @@ abstract class LabRecyclerViewAdapter<T>(
             }
             holder = LabRecyclerViewViewHolder.createViewHolder(mContext, itemView, viewType)
         }
-        holder?.let { mHolders.add(it) }
         return holder
     }
 
