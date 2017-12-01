@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import android.view.ViewGroup
-import java.util.*
 
 /**
  *
@@ -23,6 +22,7 @@ abstract class LabRecyclerViewAdapter<T>(
     private var mRecyclerView: RecyclerView? = null
     private var mRecyclerManager: RecyclerView.LayoutManager? = null
     private var isLoading = false
+    private val mHolders = ArrayList<LabRecyclerViewViewHolder>()
 
     companion object {
         private val VIEW_TYPE_HEADER: Int = 0x10000001
@@ -118,6 +118,11 @@ abstract class LabRecyclerViewAdapter<T>(
         return mData.size
     }
 
+
+    fun getAdapter(index: Int): LabRecyclerViewViewHolder {
+        return mHolders[index]
+    }
+
     public fun getLoadingViewCount(): Int = if (hasLoadingView()) 1 else 0
     public fun getHeaderViewCount(): Int = if (hasHeaderView()) 1 else 0
     public fun getFooterViewCount(): Int = if (hasFooterView()) 1 else 0
@@ -174,7 +179,7 @@ abstract class LabRecyclerViewAdapter<T>(
 
     override fun onBindViewHolder(holder: LabRecyclerViewViewHolder?, position: Int) {
         if (holder != null) {
-            if (needShowHeaderView(position) || needShowFooterView(position) || needShowLoadingView(position))return
+            if (needShowHeaderView(position) || needShowFooterView(position) || needShowLoadingView(position)) return
             setConvertView(holder, mData[position - getHeaderViewCount()],
                     holder.adapterPosition - getHeaderViewCount())
         } else {
@@ -215,7 +220,7 @@ abstract class LabRecyclerViewAdapter<T>(
             }
             holder = LabRecyclerViewViewHolder.createViewHolder(mContext, itemView, viewType)
         }
-
+        holder?.let { mHolders.add(it) }
         return holder
     }
 
