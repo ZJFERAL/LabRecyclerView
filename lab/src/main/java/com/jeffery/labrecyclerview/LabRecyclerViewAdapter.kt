@@ -119,7 +119,7 @@ abstract class LabRecyclerViewAdapter<T>(
     }
 
 
-    fun getAdapter(index: Int): LabRecyclerViewViewHolder {
+    fun getHolder(index: Int): LabRecyclerViewViewHolder {
         return mHolders[index]
     }
 
