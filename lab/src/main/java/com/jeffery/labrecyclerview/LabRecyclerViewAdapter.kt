@@ -147,7 +147,7 @@ abstract class LabRecyclerViewAdapter<T>(
         }
     }
 
-    protected fun getItemType(position: Int): Int = 0
+    fun getItemType(position: Int): Int = 0
 
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
